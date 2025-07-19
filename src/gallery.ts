@@ -11,7 +11,7 @@ export const showGallery = async (context: vscode.ExtensionContext) => {
         vscode.window.showWarningMessage('You have not set "spic.include" or "spic.exclude", If you want to check the SVG gallery, please set it to an array.')
         return
     }
-    
+
     const panel = vscode.window.createWebviewPanel(
         'svg',
         'SVG Gallery',
@@ -21,7 +21,7 @@ export const showGallery = async (context: vscode.ExtensionContext) => {
             retainContextWhenHidden: true
         }
     );
-    const srcURL = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'out/page/gallery/main.js')))
+    const srcURL = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'page/gallery/main.js')))
     panel.webview.html = getWebviewContent(srcURL);
     const SVGFileContent = (await Promise.all(globPaths.map(filePath => fs.readFile(path.join(getCwd()!, filePath)))))
         .map((buffer, index) => {
